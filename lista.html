@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adote Um Lobinho - Lista de Lobinhos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="lista.css">
+    <script type="module" src="./header-footer.js"></script>
+    <script type="module" src="./lista.js"></script>
+</head>
+<body>
+    <header id="header"></header>
+
+    <main>
+        <div id="main_content">
+            <div id = "main_content_header">
+                <div id="searchbar">
+                    <img src="assets\icons\search-icon.png" alt = "icone_busca">
+                    <input type="text" placeholder="">
+                    <a href="./adicionar-lobinho.html">+ Lobo</a>
+                </div>
+                <div id = "checkmarks">
+                    <div>
+                        <input type="checkbox" name = "ver_lobinhos" placeholder="">
+                        <p>Ver lobinhos adotados</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="wolf_list">
+                 
+            </div>
+            <div id="pagebrowse">
+                <input id="firstPage" type="button" value="<<">
+                    <div id="pages">
+                        <input type="button" value="1">
+                        <input type="button" value="2">
+                        <input type="button" value="3">
+                        <input type="button" value="4">
+                        <input type="button" value="5">
+                    </div>
+                <input type="button" value="...">
+                <input id="finalPage" type="button" value=">>">
+            </div>
+        </div>
+    </main>
+
+
+    <footer id="footer"></footer>
+    
+
+</body>
+</html>
