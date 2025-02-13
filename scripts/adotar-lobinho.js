@@ -1,9 +1,10 @@
-import { inicializarLocalStorage, getLobos, updateLocalStorage } from "./script.js";
+import {updateLobinho, getLobos} from "./script.js";
 
-let lobos = getLobos();
-
-let indexLobo = localStorage.getItem("IndexLobo");
-localStorage.removeItem("IndexLobo");
+try {
+    let lobos = await getLobos();
+} catch (error) {
+    console.error("Falha ao tentar *carregar* lobos");
+}
 
 let imagem = document.querySelector("#imagem");
 let foto = document.createElement("img");
