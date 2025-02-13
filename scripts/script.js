@@ -1,4 +1,5 @@
 export const API_URL = "http://localhost:3000/lobos";
+export const API_URL_INDEX = "http://localhost:3000/index"; 
 
 // export async function inicializarServidor() {
 //     try {
@@ -91,5 +92,33 @@ export async function deleteLobinho(id){
         });
     } catch (error) {
         console.error("Falha ao *deletar* lobinho");
+    }
+}
+
+export async function getIndex() {
+    try {
+        let response = await fetch(API_URL_INDEX);
+        if (!response.ok) throw new Error("Erro ao buscar index");
+        let data = await response.json();
+        console.log("Lista index atual:", data);
+        return data;
+    } catch (error) {
+        console.error("Erro ao obter index:", error);
+    }
+}
+
+export async function limparIndex() {
+    try {
+        let response = await fetch(API_URL_INDEX, {
+            method: "PUT", // Atualiza a lista inteira
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify([]) // Define index como lista vazia
+        });
+
+        if (!response.ok) throw new Error("Erro ao limpar index");
+
+        console.log("Lista index foi limpa!");
+    } catch (error) {
+        console.error("Erro ao limpar index:", error);
     }
 }
