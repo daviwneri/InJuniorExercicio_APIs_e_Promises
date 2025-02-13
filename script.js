@@ -1,3 +1,12 @@
+//criem um arquivo chamado ".gitignore" com o seguinte conteúdo:
+//.gitignore
+//node_modules
+
+// Façam esses três comandos em ordem no terminal do VSCode com o projeto aberto
+// npm init -y
+// npm install json-server
+// npx json-server --watch lobinhos.json --port 3000
+
 const API_URL = "http://localhost:3000/lobos";
 
 export async function inicializarLocalStorage() {
