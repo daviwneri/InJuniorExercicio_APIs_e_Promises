@@ -30,7 +30,6 @@ export async function getLobos() {
         }
 
         const lobos = await response.json();
-        console.log(lobos);
         return lobos;
     } catch (error) {
         console.error("Error fetching lobos:", error);
@@ -38,6 +37,20 @@ export async function getLobos() {
     }
 }
 
+export async function salvarIndex(indexLobo){
+    let indexJson = {
+        index : indexLobo
+    }
+    try{
+        let response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(indexJson)
+        });
+    } catch (error){
+        console.log("Erro ao salvar indice");
+    }
+}
 
 export async function addLobinho(novoLobo) {
     try {
