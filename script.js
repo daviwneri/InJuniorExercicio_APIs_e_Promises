@@ -1,15 +1,8 @@
-//criem um arquivo chamado ".gitignore" com o seguinte conteúdo:
-//.gitignore
-//node_modules
-
-// Façam esses três comandos em ordem no terminal do VSCode com o projeto aberto
-// npm init -y
-// npm install json-server
-// npx json-server --watch lobinhos.json --port 3000
+const API_URL = "http://localhost:3000/lobos";
 
 export async function inicializarLocalStorage() {
     try {
-        const response = await fetch('lobinhos.json');
+        const response = await fetch(API_URL);
         if (!response.ok) {
             throw new Error(`Erro ao buscar lobinho.json: ${response.statusText}`);
         }
@@ -23,14 +16,33 @@ export async function inicializarLocalStorage() {
     }
 }
 
-export function getLobos() {
-    return JSON.parse(localStorage.getItem('lobos'));
+export async function getLobos() {
+    let response = await fetch(API_URL);
+    let lobos = await response.json();
+    return lobos;
 }
 
-export function updateLocalStorage(lobos) {
+export async function addLobinho(lobos, novoLobo) {
     try {
-        localStorage.setItem('lobos', JSON.stringify(lobos));
+        let response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(novoLobo)
+        });
     } catch (error) {
-        console.error('Erro ao *atualizar* localStorage');
+        console.error('Erro ao *adicionar* lobinhos.json');
+    }
+}
+
+export async function updateLobinho(id, novosDados){
+    try {
+        let response = await fetch(API_URL, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(novosDados)
+        });
+        
+    } catch (error) {
+        console.error("Erro ao tentar *atualizar* lobinhos.json");
     }
 }
