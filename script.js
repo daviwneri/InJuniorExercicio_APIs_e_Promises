@@ -31,7 +31,7 @@ export async function getLobos() {
     return lobos;
 }
 
-export async function addLobinho(lobos, novoLobo) {
+export async function addLobinho(novoLobo) {
     try {
         let response = await fetch(API_URL, {
             method: "POST",
@@ -39,13 +39,13 @@ export async function addLobinho(lobos, novoLobo) {
             body: JSON.stringify(novoLobo)
         });
     } catch (error) {
-        console.error('Erro ao *adicionar* lobinhos.json');
+        console.error('Erro ao *adicionar* lobinho');
     }
 }
 
 export async function updateLobinho(id, novosDados){
     try {
-        let response = await fetch(API_URL, {
+        let response = await fetch(`${API_URL}/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(novosDados)
@@ -53,5 +53,15 @@ export async function updateLobinho(id, novosDados){
         
     } catch (error) {
         console.error("Erro ao tentar *atualizar* lobinhos.json");
+    }
+}
+
+export async function deleteLobinho(id){
+    try {
+        let response = await fetch(`${API_URL}/${id}`, {
+            method: "DELETE"
+        });
+    } catch (error) {
+        console.error("Falha ao *deletar* lobinho");
     }
 }
