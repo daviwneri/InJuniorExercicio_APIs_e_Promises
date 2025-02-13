@@ -9,20 +9,21 @@
 
 const API_URL = "http://localhost:3000/lobos";
 
-// export async function inicializarServidor() {
-//     try {
-//         const response = await fetch(API_URL);
-//         if (!response.ok) {
-//             throw new Error(`Erro ao buscar lobinho.json: ${response.statusText}`);
-//         }
-//         const lobos = await response.json();
-//         console.log('Lobos inicializados no servidor JSON');
-//     } catch (error) {
-//         console.error('Erro ao inicializar o servidor:', error);
-//     } finally {
-//         console.log('Tentativa de inicialização do servidor concluída');
-//     }
-// }
+export async function inicializarServidor() {
+    try {
+        const response = await fetch(API_URL);
+        if (!response.ok) {
+            throw new Error(`Erro ao buscar lobinho.json: ${response.statusText}`);
+        }
+        const lobos = await response.json();
+        localStorage.setItem('lobos', JSON.stringify(lobos));
+        console.log('Lobos inicializados no servidor JSON');
+    } catch (error) {
+        console.error('Erro ao inicializar o servidor:', error);
+    } finally {
+        console.log('Tentativa de inicialização do servidor concluída');
+    }
+}
 
 export async function getLobos() {
     let response = await fetch(API_URL);
@@ -30,7 +31,7 @@ export async function getLobos() {
     return lobos;
 }
 
-export async function addLobinho(lobos, novoLobo) {
+export async function addLobinho(novoLobo) {
     try {
         let response = await fetch(API_URL, {
             method: "POST",
@@ -38,13 +39,13 @@ export async function addLobinho(lobos, novoLobo) {
             body: JSON.stringify(novoLobo)
         });
     } catch (error) {
-        console.error('Erro ao *adicionar* lobinhos.json');
+        console.error('Erro ao *adicionar* lobinho');
     }
 }
 
 export async function updateLobinho(id, novosDados){
     try {
-        let response = await fetch(API_URL, {
+        let response = await fetch(`${API_URL}/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(novosDados)
@@ -52,5 +53,15 @@ export async function updateLobinho(id, novosDados){
         
     } catch (error) {
         console.error("Erro ao tentar *atualizar* lobinhos.json");
+    }
+}
+
+export async function deleteLobinho(id){
+    try {
+        let response = await fetch(`${API_URL}/${id}`, {
+            method: "DELETE"
+        });
+    } catch (error) {
+        console.error("Falha ao *deletar* lobinho");
     }
 }
