@@ -10999,17 +10999,8 @@
       "nomeDono": "Godfrey",
       "idadeDono": 89,
       "emailDono": "gcurnickrr@nytimes.com"
-    },
-    {
-      "id": 1001,
-      "nome": "rui",
-      "idade": "45",
-      "descricao": "teabasbfsgr",
-      "imagem": "qwrvcqwdv",
-      "adotado": false,
-      "nomeDono": null,
-      "idadeDono": null,
-      "emailDono": null
     }
+  ],
+  "index" : [
   ]
 }
