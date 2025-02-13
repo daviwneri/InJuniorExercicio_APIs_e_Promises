@@ -1,4 +1,4 @@
-import {updateLobinho, getLobos, getIndex, limparIndex} from "./script.js";
+import {updateLobinho, getLobos} from "./script.js";
 
 try {
     let lobos = await getLobos();
@@ -6,7 +6,8 @@ try {
     console.error("Falha ao tentar *carregar* lobos");
 }
 
-
+let indexLobo = localStorage.getItem("IndexLobo");
+localStorage.removeItem("indexLobo");
 
 let imagem = document.querySelector("#imagem");
 let foto = document.createElement("img");
@@ -37,12 +38,15 @@ function adotar(){
         return;
     }
 
-    lobos[indexLobo].nomeDono = nomeDono;
-    lobos[indexLobo].idadeDono = idadeDono;
-    lobos[indexLobo].emailDono = emailDono;
-    lobos[indexLobo].adotado = true;
+    let novosDados = {
+        adotado: true,
+        nomeDono: nomeDono,
+        idadeDono: idadeDono,
+        emailDono: emailDono
 
-    updateLocalStorage(lobos);
+    };
+
+    updateLobinho(indexLobo, novosDados);
 
     inputNome.value = "";
     inputIdade.value = "";
