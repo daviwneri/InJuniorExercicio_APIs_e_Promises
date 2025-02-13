@@ -1,33 +1,30 @@
-//criem um arquivo chamado ".gitignore" com o seguinte conteúdo:
-//.gitignore
-//node_modules
+export const API_URL = "http://localhost:3000/?";
 
-// Façam esses três comandos em ordem no terminal do VSCode com o projeto aberto
-// npm init -y
-// npm install json-server
+// export async function inicializarServidor() {
+//     try {
+//         const response = await fetch(API_URL);
+//         if (!response.ok) {
+//             throw new Error(`Erro ao buscar lobinho.json: ${response.statusText}`);
+//         }
+//         const lobos = await response.json();
+//         localStorage.setItem('lobos', JSON.stringify(lobos));
+//         console.log('Lobos inicializados no servidor JSON');
+//     } catch (error) {
+//         console.error('Erro ao inicializar o servidor:', error);
+//     } finally {
+//         console.log('Tentativa de inicialização do servidor concluída');
+//     }
+// }
+
 // npx json-server --watch lobinhos.json --port 3000
 
-export const API_URL = "http://localhost:3000/lobos";
-
-export async function inicializarServidor() {
-    try {
-        const response = await fetch(API_URL);
-        if (!response.ok) {
-            throw new Error(`Erro ao buscar lobinho.json: ${response.statusText}`);
-        }
-        const lobos = await response.json();
-        localStorage.setItem('lobos', JSON.stringify(lobos));
-        console.log('Lobos inicializados no servidor JSON');
-    } catch (error) {
-        console.error('Erro ao inicializar o servidor:', error);
-    } finally {
-        console.log('Tentativa de inicialização do servidor concluída');
-    }
-}
-
 export async function getLobos() {
-    let response = await fetch(API_URL);
+    let response = await fetch(API_URL, {
+        method: "GET",
+        headers: {"Content-Type": "	text/html; charset=utf-8"},
+    });
     let lobos = await response.json();
+    console.log(lobos);
     return lobos;
 }
 
