@@ -63,11 +63,11 @@ header {
     border: none;
     width: 96.55px;
     height: 112.72px;
-    background-image: url(./assets/icons/adote-lobinho-icon.png);
+    background-image: url(../assets/icons/adote-lobinho-icon.png);
 }
 
 .logo:hover {
-    background-image: url(./assets/icons/adote-lobinho-blink-icon.png);
+    background-image: url(../assets/icons/adote-lobinho-blink-icon.png);
 }
 
 header a {
