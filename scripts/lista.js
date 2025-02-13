@@ -1,4 +1,4 @@
-import {API_URL, getLobos, salvarIndex} from "./script.js";
+import {API_URL, getLobos} from "./script.js";
 
 let lobos = await getLobos();
 
@@ -109,7 +109,7 @@ async function LimparLobos(){
 }
 
 function adotarLobinho(index){
-    salvarIndex(index);
+    localStorage.setItem("IndexLobo", index);
 }
 
 /* Usar lista de lobos adotados somente */
