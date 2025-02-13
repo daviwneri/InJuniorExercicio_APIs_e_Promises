@@ -9,7 +9,7 @@
 
 const API_URL = "http://localhost:3000/lobos";
 
-export async function inicializarLocalStorage() {
+export async function inicializarServidor() {
     try {
         const response = await fetch(API_URL);
         if (!response.ok) {
@@ -17,11 +17,11 @@ export async function inicializarLocalStorage() {
         }
         const lobos = await response.json();
         localStorage.setItem('lobos', JSON.stringify(lobos));
-        console.log('Lobos inicializados no localStorage');
+        console.log('Lobos inicializados no servidor JSON');
     } catch (error) {
-        console.error('Erro ao inicializar o localStorage:', error);
+        console.error('Erro ao inicializar o servidor:', error);
     } finally {
-        console.log('Tentativa de inicialização do localStorage concluída');
+        console.log('Tentativa de inicialização do servidor concluída');
     }
 }
 
