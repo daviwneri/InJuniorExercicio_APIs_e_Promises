@@ -7,7 +7,7 @@
 // npm install json-server
 // npx json-server --watch lobinhos.json --port 3000
 
-const API_URL = "http://localhost:3000/lobos";
+export const API_URL = "http://localhost:3000/lobos";
 
 export async function inicializarServidor() {
     try {

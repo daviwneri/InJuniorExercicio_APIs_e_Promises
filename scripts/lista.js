@@ -1,12 +1,5 @@
-import { inicializarLocalStorage, getLobos, updateLocalStorage } from "./script.js";
+import {getLobos, addLobinho, updateLobinho, deleteLobinho } from "./script.js";
 
-if (!localStorage.getItem('lobos')) {
-    inicializarLocalStorage().then(() => {
-        console.log('Inicialização do localStorage concluída');
-    }).catch(error => {
-        console.error('Erro durante a inicialização do localStorage:', error);
-    });
-}
 
 let lobos = getLobos();
 
@@ -119,6 +112,7 @@ function LimparLobos(){
     wolfList.innerHTML = "";
 }
 
+// alterar pra usar fetch
 function adotarLobinho(index){
     localStorage.setItem("IndexLobo", index);
 }
