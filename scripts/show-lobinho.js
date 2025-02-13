@@ -1,26 +1,13 @@
 import { API_URL, getLobos, updateLobinho } from "./script.js";
 
-let lobos = getLobos();
+let lobos = await getLobos();
 
-let indexLobo = 0;
-
-fetch(`${API_URL}/IndexLobo`) 
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json(); 
-  })
-  .then(data => {
-    indexLobo = data.id; 
-  })
-  .catch(error => {
-    console.error('Error fetching data:', error);
-  });
+let indexLobo = localStorage.getItem("IndexLobo");
+localStorage.removeItem("IndexLobo");
 
 let main = document.querySelector("main");
 
-if(indexLobo){
+if(lobos && indexLobo){
     PrepararLobo();
 } else {
     alert("falha ao carregar lobo");
