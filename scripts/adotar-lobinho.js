@@ -1,9 +1,23 @@
-import {updateLobinho, getLobos} from "./script.js";
+import {updateLobinho, getLobos, getIndex, limparIndex} from "./script.js";
 
 try {
     let lobos = await getLobos();
 } catch (error) {
     console.error("Falha ao tentar *carregar* lobos");
+}
+
+try {
+    let index = await getIndex();
+} catch (error) {
+    console.error("Falha ao tentar *carregar* índices");
+}
+
+let indexLobo = index[0];
+
+try {
+    limparIndex();
+} catch (error) {
+    console.error("Falha ao tentar *limpar* index");
 }
 
 let imagem = document.querySelector("#imagem");
