@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:3000/?";
+export const API_URL = "http://localhost:3000/lobos";
 
 // export async function inicializarServidor() {
 //     try {
@@ -19,14 +19,25 @@ export const API_URL = "http://localhost:3000/?";
 // npx json-server --watch lobinhos.json --port 3000
 
 export async function getLobos() {
-    let response = await fetch(API_URL, {
-        method: "GET",
-        headers: {"Content-Type": "	text/html; charset=utf-8"},
-    });
-    let lobos = await response.json();
-    console.log(lobos);
-    return lobos;
+    try {
+        const response = await fetch(API_URL, {
+            method: "GET",
+            headers: { "Accept": "application/json" } // Ensure JSON response
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const lobos = await response.json();
+        console.log(lobos);
+        return lobos;
+    } catch (error) {
+        console.error("Error fetching lobos:", error);
+        return null;
+    }
 }
+
 
 export async function addLobinho(novoLobo) {
     try {
