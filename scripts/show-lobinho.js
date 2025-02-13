@@ -1,8 +1,22 @@
-import { inicializarLocalStorage, getLobos, updateLocalStorage } from "./script.js";
+import { API_URL, getLobos, updateLobinho } from "./script.js";
 
 let lobos = getLobos();
 
-let indexLobo = localStorage.getItem("IndexLobo");
+let indexLobo = 0;
+
+fetch(`${API_URL}/IndexLobo`) 
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json(); 
+  })
+  .then(data => {
+    indexLobo = data.id; 
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
 
 let main = document.querySelector("main");
 
@@ -72,6 +86,6 @@ function AdotarLobo(){
 function ExcluirLobo(){
     alert("lobo "+ lobos[indexLobo].nome + " excluido");
     lobos.splice(indexLobo, 1);
-    updateLocalStorage(lobos);
+    updateLobinho(lobos);
     window.location.href = "./lista.html" 
 }
