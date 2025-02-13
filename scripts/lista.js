@@ -150,13 +150,14 @@ async function ExibirLobo(loboId, par){
     if(lista[loboId].adotado){
         botaoAdotar.value = "Adotado"
         botaoAdotar.style.background = "#7AAC3A";
+    } else {
+        botaoAdotar.addEventListener("click", ()=>{
+            adotarLobinho(loboId);
+            window.location.href = "./show-lobinho.html"
+        })
     }
 
-    botaoAdotar.addEventListener("click", ()=>{
-        adotarLobinho(loboId);
-        window.location.href = "./show-lobinho.html"
-
-    })
+    
 
     let divInfo = document.createElement("div");
     divInfo.id = "wolf_header";

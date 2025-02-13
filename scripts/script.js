@@ -23,7 +23,7 @@ export async function getLobos() {
     try {
         const response = await fetch(API_URL, {
             method: "GET",
-            headers: { "Accept": "application/json" } // Ensure JSON response
+            headers: { "Accept": "application/json" }
         });
 
         if (!response.ok) {
@@ -43,7 +43,7 @@ export async function salvarIndex(indexLobo) {
         index: indexLobo
     };
     try {
-        let response = await fetch("http://localhost:3000/index", {
+        let response = await fetch(API_URL_INDEX, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(indexJson)
@@ -52,7 +52,6 @@ export async function salvarIndex(indexLobo) {
         if (!response.ok) {
             throw new Error(`Erro na requisição: ${response.status}`);
         }
-
         console.log("Índice salvo com sucesso!");
     } catch (error) {
         console.log("Erro ao salvar índice:", error);
