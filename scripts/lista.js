@@ -1,21 +1,13 @@
-import { inicializarLocalStorage, getLobos, updateLocalStorage } from "./script.js";
+import {API_URL, getLobos} from "./script.js";
 
-if (!localStorage.getItem('lobos')) {
-    inicializarLocalStorage().then(() => {
-        console.log('Inicialização do localStorage concluída');
-    }).catch(error => {
-        console.error('Erro durante a inicialização do localStorage:', error);
-    });
-}
+let lobos = await getLobos();
 
-let lobos = getLobos();
+console.log(lobos);
 
-let lobosAdotados = lobos.filter(lobo =>{
+let lobosAdotados = await lobos.filter(lobo =>{
     return lobo.adotado == true;
 }
 );
-
-console.log(lobos);
 
 let page = 1;
 let wolfList = document.querySelector("#wolf_list");
@@ -73,10 +65,7 @@ checkAdopt.addEventListener("change", ()=>{
     Pagina(page);
 });
 
-
-// searchButton.addEventListener("click", ()=>{Pesquisar()});
-
-function Pesquisar(){
+async function Pesquisar(){
     if(searchbar.value){
         let lobosEncontrados = lobos.filter(lobo => {
             return lobo.nome === searchbar.value;
@@ -105,7 +94,7 @@ function Pesquisar(){
     
 }
 
-function Pagina(numero){
+async function Pagina(numero){
     LimparLobos();
     let selecao = (numero * 4);
     for(let i = (selecao - 4); i < selecao; i++){ 
@@ -115,7 +104,7 @@ function Pagina(numero){
     page = numero;
 }
 
-function LimparLobos(){
+async function LimparLobos(){
     wolfList.innerHTML = "";
 }
 
@@ -124,7 +113,7 @@ function adotarLobinho(index){
 }
 
 /* Usar lista de lobos adotados somente */
-function ExibirLobo(loboId, par){
+async function ExibirLobo(loboId, par){
     let lista;
     if(checkAdopt.checked){
         lista = lobosAdotados;
@@ -161,13 +150,14 @@ function ExibirLobo(loboId, par){
     if(lista[loboId].adotado){
         botaoAdotar.value = "Adotado"
         botaoAdotar.style.background = "#7AAC3A";
-    }
-
+    } 
     botaoAdotar.addEventListener("click", ()=>{
         adotarLobinho(loboId);
         window.location.href = "./show-lobinho.html"
-
     })
+    
+
+    
 
     let divInfo = document.createElement("div");
     divInfo.id = "wolf_header";

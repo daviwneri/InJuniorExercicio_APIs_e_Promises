@@ -1,12 +1,12 @@
-import { inicializarLocalStorage, getLobos, updateLocalStorage } from "./script.js";
+import { API_URL, getLobos, updateLobinho, deleteLobinho} from "./script.js";
 
-let lobos = getLobos();
+let lobos = await getLobos();
 
 let indexLobo = localStorage.getItem("IndexLobo");
 
 let main = document.querySelector("main");
 
-if(indexLobo){
+if(lobos && indexLobo){
     PrepararLobo();
 } else {
     alert("falha ao carregar lobo");
@@ -69,9 +69,9 @@ function AdotarLobo(){
     window.location.href = "./adotar-lobinho.html"   
 }
 
-function ExcluirLobo(){
+async function ExcluirLobo(){
+    let id = lobos[indexLobo].id
     alert("lobo "+ lobos[indexLobo].nome + " excluido");
-    lobos.splice(indexLobo, 1);
-    updateLocalStorage(lobos);
-    window.location.href = "./lista.html" 
+    await deleteLobinho(id);    
+    window.location.href = "./lista.html";
 }

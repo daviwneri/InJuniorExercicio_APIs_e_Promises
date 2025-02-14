@@ -1,61 +1,50 @@
-import { inicializarLocalStorage, getLobos, updateLocalStorage } from "./script.js";
+import { getLobos, addLobinho } from "./script.js";
 
-if (!localStorage.getItem('lobos')) {
-    inicializarLocalStorage().then(() => {
-        console.log('Inicialização do localStorage concluída');
-    }).catch(error => {
-        console.error('Erro durante a inicialização do localStorage:', error);
-    });
-}
-
-let lobos = getLobos();
-/*------------------------------------------------------------*/
-
-let id = Object.keys(lobos).length;
-
-function adicionarLobinho(){
+async function adicionarLobinho() {
     let inputNome = document.querySelector("#name-input"); 
     let inputIdade = document.querySelector("#age-input"); 
     let inputLink = document.querySelector("#link-input"); 
     let inputDescricao = document.querySelector("#description-input");
 
-    let nome = inputNome.value;
-    let idade = inputIdade.value;
-    let link = inputLink.value;
-    let descricao = inputDescricao.value;
+    let nome = inputNome.value.trim();
+    let idade = inputIdade.value.trim();
+    let link = inputLink.value.trim();
+    let descricao = inputDescricao.value.trim();
 
-    if (!nome || !idade || !link || !descricao){
-        alert("Preencha todos os espaços")
-        return
+    if (!nome || !idade || !link || !descricao) {
+        alert("Preencha todos os espaços");
+        return;
     }
-        
 
-    id+=1;
+    try {
+        let lobos = await getLobos();
 
-    let novoLobo = {
-        id: id,
-        nome: nome,
-        idade: idade,
-        descricao: descricao,
-        imagem: link,
-        adotado: false,
-        nomeDono: null,
-        idadeDono: null,
-        emailDono: null,
-    };
+        let novoId = lobos.length > 0 ? Math.max(...lobos.map(lobo => lobo.id)) + 1 : 1;
 
-    lobos.unshift(novoLobo);
+        let novoLobo = {
+            id: novoId,
+            nome: nome,
+            idade: idade,
+            descricao: descricao,
+            imagem: link,
+            adotado: false,
+            nomeDono: null,
+            idadeDono: null,
+            emailDono: null
+        };
 
-    updateLocalStorage(lobos);
-    
-    inputNome.value = "";
-    inputIdade.value = "";
-    inputLink.value = "";
-    inputDescricao.value = "";
+        await addLobinho(novoLobo);
+        alert("Lobo adicionado com sucesso!");
 
-    alert("Lobo adicionado com sucesso!!")
+        inputNome.value = "";
+        inputIdade.value = "";
+        inputLink.value = "";
+        inputDescricao.value = "";
+    } catch (error) {
+        console.error("Erro ao adicionar o lobo:", error);
+        alert("Erro ao adicionar o lobo. Tente novamente.");
+    }
 }
 
-
 let salvar = document.querySelector("#save-button");
-salvar.addEventListener("click", ()=>{adicionarLobinho()})
+salvar.addEventListener("click", adicionarLobinho);

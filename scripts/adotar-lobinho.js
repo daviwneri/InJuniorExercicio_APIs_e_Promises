@@ -1,21 +1,34 @@
-import { inicializarLocalStorage, getLobos, updateLocalStorage } from "./script.js";
-
-let lobos = getLobos();
+import {updateLobinho, getLobos} from "./script.js";
 
 let indexLobo = localStorage.getItem("IndexLobo");
-localStorage.removeItem("IndexLobo");
 
-let imagem = document.querySelector("#imagem");
-let foto = document.createElement("img");
+let lobos;
 
-foto.src = lobos[indexLobo].imagem;
-imagem.append(foto);
+async function carregarLobo() {
+    try {
+        lobos = await getLobos();
 
-let nomeLobo = document.querySelector("#nome_lobo");
-let id = document.querySelector("#id_lobo");
+        let imagem = document.querySelector("#imagem");
+        let foto = document.createElement("img");
 
-nomeLobo.innerText = "Adote o(a) " + lobos[indexLobo].nome;
-id.innerText = "ID:" + lobos[indexLobo].id;
+        foto.src = lobos[indexLobo].imagem;
+        imagem.append(foto);
+
+        let nomeLobo = document.querySelector("#nome_lobo");
+        let id = document.querySelector("#id_lobo");
+
+        nomeLobo.innerText = "Adote o(a) " + lobos[indexLobo].nome;
+        id.innerText = "ID: " + lobos[indexLobo].id;
+
+        let btn_adotar = document.querySelector("#botao_adotar");
+        btn_adotar.addEventListener("click", adotar);
+        
+    } catch (error) {
+        console.error("Erro ao carregar lobo:", error);
+    }
+}
+
+carregarLobo();
 
 /*----------------------------------------------------*/
 
@@ -34,22 +47,24 @@ function adotar(){
         return;
     }
 
-    lobos[indexLobo].nomeDono = nomeDono;
-    lobos[indexLobo].idadeDono = idadeDono;
-    lobos[indexLobo].emailDono = emailDono;
-    lobos[indexLobo].adotado = true;
+    let novosDados = {
+        adotado: true,
+        nomeDono: nomeDono,
+        idadeDono: idadeDono,
+        emailDono: emailDono
 
-    updateLocalStorage(lobos);
+    };
+
+    let id = lobos[indexLobo].id
+    alert("Lobinho adotado com sucesso!!");
+    updateLobinho(novosDados, id);
 
     inputNome.value = "";
     inputIdade.value = "";
     inputEmail.value = "";
-    
-    let parabens = alert("Lobinho adotado com sucesso!!");
 
     window.location.href = "./lista.html";
 
 }
 
-let btn_adotar = document.querySelector("#botao_adotar");
-btn_adotar.addEventListener("click", adotar);
+
