@@ -56,13 +56,12 @@ function adotar(){
     };
 
     let id = lobos[indexLobo].id
+    alert("Lobinho adotado com sucesso!!");
     updateLobinho(novosDados, id);
 
     inputNome.value = "";
     inputIdade.value = "";
     inputEmail.value = "";
-    
-    let parabens = alert("Lobinho adotado com sucesso!!");
 
     window.location.href = "./lista.html";
 

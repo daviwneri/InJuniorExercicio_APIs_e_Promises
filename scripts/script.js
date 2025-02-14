@@ -52,12 +52,11 @@ export async function addLobinho(novoLobo) {
 }
 
 export async function updateLobinho(novosDados, id){
-    console.log(novosDados);
     try {
         let response = await fetch(API_URL + `/` + id,{
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: novosDados
+            body: JSON.stringify(novosDados)
         });
         if (!response.ok) {
             let errorMessage = await response.text();
