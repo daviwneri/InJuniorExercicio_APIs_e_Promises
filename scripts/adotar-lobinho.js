@@ -1,25 +1,34 @@
 import {updateLobinho, getLobos} from "./script.js";
 
-try {
-    let lobos = await getLobos();
-} catch (error) {
-    console.error("Falha ao tentar *carregar* lobos");
+let indexLobo = localStorage.getItem("IndexLobo");
+
+let lobos;
+
+async function carregarLobo() {
+    try {
+        lobos = await getLobos();
+
+        let imagem = document.querySelector("#imagem");
+        let foto = document.createElement("img");
+
+        foto.src = lobos[indexLobo].imagem;
+        imagem.append(foto);
+
+        let nomeLobo = document.querySelector("#nome_lobo");
+        let id = document.querySelector("#id_lobo");
+
+        nomeLobo.innerText = "Adote o(a) " + lobos[indexLobo].nome;
+        id.innerText = "ID: " + lobos[indexLobo].id;
+
+        let btn_adotar = document.querySelector("#botao_adotar");
+        btn_adotar.addEventListener("click", adotar);
+        
+    } catch (error) {
+        console.error("Erro ao carregar lobo:", error);
+    }
 }
 
-let indexLobo = localStorage.getItem("IndexLobo");
-localStorage.removeItem("indexLobo");
-
-let imagem = document.querySelector("#imagem");
-let foto = document.createElement("img");
-
-foto.src = lobos[indexLobo].imagem;
-imagem.append(foto);
-
-let nomeLobo = document.querySelector("#nome_lobo");
-let id = document.querySelector("#id_lobo");
-
-nomeLobo.innerText = "Adote o(a) " + lobos[indexLobo].nome;
-id.innerText = "ID:" + lobos[indexLobo].id;
+carregarLobo();
 
 /*----------------------------------------------------*/
 
@@ -46,7 +55,8 @@ function adotar(){
 
     };
 
-    updateLobinho(indexLobo, novosDados);
+    let id = lobos[indexLobo].id
+    updateLobinho(novosDados, id);
 
     inputNome.value = "";
     inputIdade.value = "";
@@ -58,5 +68,4 @@ function adotar(){
 
 }
 
-let btn_adotar = document.querySelector("#botao_adotar");
-btn_adotar.addEventListener("click", adotar);
+

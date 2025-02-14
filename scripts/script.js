@@ -51,14 +51,18 @@ export async function addLobinho(novoLobo) {
     }
 }
 
-export async function updateLobinho(id, novosDados){
+export async function updateLobinho(novosDados, id){
+    console.log(novosDados);
     try {
-        let response = await fetch(`${API_URL}/${id}`, {
+        let response = await fetch(API_URL + `/` + id,{
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(novosDados)
+            body: novosDados
         });
-        
+        if (!response.ok) {
+            let errorMessage = await response.text();
+            throw new Error(`Erro ${response.status}: ${errorMessage}`);
+        }
     } catch (error) {
         console.error("Erro ao tentar *atualizar* lobinhos.json");
     }
@@ -66,8 +70,8 @@ export async function updateLobinho(id, novosDados){
 
 export async function deleteLobinho(id){
     try {
-        let response = await fetch(`${API_URL}/${id}`, {
-            method: "DELETE"
+        let response = await fetch(API_URL + `/` + id,{
+            method: "DELETE",
         });
     } catch (error) {
         console.error("Falha ao *deletar* lobinho");

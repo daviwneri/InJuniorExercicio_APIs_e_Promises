@@ -1,9 +1,8 @@
-import { API_URL, getLobos, updateLobinho } from "./script.js";
+import { API_URL, getLobos, updateLobinho, deleteLobinho} from "./script.js";
 
 let lobos = await getLobos();
 
 let indexLobo = localStorage.getItem("IndexLobo");
-localStorage.removeItem("IndexLobo");
 
 let main = document.querySelector("main");
 
@@ -70,9 +69,10 @@ function AdotarLobo(){
     window.location.href = "./adotar-lobinho.html"   
 }
 
-function ExcluirLobo(){
-    alert("lobo "+ lobos[indexLobo].nome + " excluido");
-    lobos.splice(indexLobo, 1);
-    updateLobinho(lobos);
+async function ExcluirLobo(){
+    let id = lobos[indexLobo].id
+    await deleteLobinho(id);    
     window.location.href = "./lista.html" 
+    alert("lobo "+ lobos[indexLobo].nome + " excluido");
+    
 }
