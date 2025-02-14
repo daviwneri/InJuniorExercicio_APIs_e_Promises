@@ -72,6 +72,8 @@ export async function deleteLobinho(id){
         let response = await fetch(API_URL + `/` + id,{
             method: "DELETE",
         });
+
+        console.log(`Lobo ${id} deletado com sucesso.`);
     } catch (error) {
         console.error("Falha ao *deletar* lobinho");
     }

@@ -71,8 +71,7 @@ function AdotarLobo(){
 
 async function ExcluirLobo(){
     let id = lobos[indexLobo].id
-    await deleteLobinho(id);    
-    window.location.href = "./lista.html" 
     alert("lobo "+ lobos[indexLobo].nome + " excluido");
-    
+    await deleteLobinho(id);    
+    window.location.href = "./lista.html";
 }
